@@ -76,6 +76,7 @@ def create_default_local_file_ITP_train(workspace_dir, data_dir):
         'antiuav410_dir': os.path.join(data_dir, 'antiuav410/train'),
         'irstd1k_dir': os.path.join(data_dir, 'irstd1k/'),
         'irstd_dir': os.path.join(data_dir, 'irstd/'),
+        'uavantiuav_dir': os.path.join(data_dir, 'uavantiuav/train')
 })
     comment = {'workspace_dir': 'Base directory for saving network checkpoints.',
                'tensorboard_dir': 'Directory for tensorboard files.'}

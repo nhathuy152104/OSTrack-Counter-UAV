@@ -77,7 +77,7 @@ class UAVAntiUAV(BaseVideoDataset):
 
         seq_dirs = [osp.dirname(f) for f in anno_files]
         seq_names = [osp.basename(d) for d in seq_dirs]
-
+        print(len(seq_dirs))
         return seq_names
 
     def _read_bb_anno(self, seq_path):

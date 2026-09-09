@@ -55,8 +55,8 @@ def run(settings):
         net = build_ostrack(cfg)
     else:
         raise ValueError("illegal script name")
-    for p in net.backbone.parameters():
-        p.requires_grad = False
+    # for p in net.backbone.parameters():
+    #     p.requires_grad = False
 
     print("Backbone frozen")
     # wrap networks to distributed one

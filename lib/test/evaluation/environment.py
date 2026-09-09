@@ -80,7 +80,6 @@ class EnvSettings_ITP:
         self.lasot_extension_subset_path = os.path.join(data_dir, 'lasot_extension_subset')
         self.davis_dir = ''
         self.youtubevos_dir = ''
-
         self.got_packed_results_path = ''
         self.got_reports_path = ''
         self.tn_packed_results_path = ''

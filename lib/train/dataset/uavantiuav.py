@@ -64,7 +64,7 @@ class UAVAntiUAV(BaseVideoDataset):
         for i, s in enumerate(self.sequence_list):
             object_class = self.sequence_meta_info[s]['object_class_name']
             if object_class in seq_per_class:
-                seq_per_class[object_class].append()
+                seq_per_class[object_class].append(i)
             else:
                 seq_per_class[object_class] = [i]
 

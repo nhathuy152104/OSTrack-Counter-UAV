@@ -76,6 +76,7 @@ class EnvSettings_ITP:
         self.itb_path = os.path.join(data_dir, 'itb')
         self.tnl2k_path = os.path.join(data_dir, 'tnl2k')
         self.antiuav410_path = os.path.join(data_dir, 'antiuav410')
+        self.uavantiuav_path = os.path.join(data_dir, "uavantiuav/dataset")
         self.lasot_extension_subset_path = os.path.join(data_dir, 'lasot_extension_subset')
         self.davis_dir = ''
         self.youtubevos_dir = ''

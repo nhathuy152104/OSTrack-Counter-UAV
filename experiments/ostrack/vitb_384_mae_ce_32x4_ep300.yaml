@@ -27,18 +27,18 @@ DATA:
 
   TRAIN:
     DATASETS_NAME:
-    - AntiUAV410
+    - UAVAntiUAV
     DATASETS_RATIO:
     - 1
     SAMPLE_PER_EPOCH: 10000
   VAL:
     DATASETS_NAME:
-    - AntiUAV410
+    - UAVAntiUAV
     DATASETS_RATIO:
     - 1
     SAMPLE_PER_EPOCH: 10000
 MODEL:
-  PRETRAIN_FILE: "Z:/HuyWorkSpace/OSTrack-main/OSTrack-main/output_antiuav/checkpoints/train/ostrack/vitb_384_mae_ce_32x4_ep300/OSTrack_ep0001.pth.tar"
+  PRETRAIN_FILE: "/kaggle/input/datasets/huynhat15/OSTrack_ep0300.pth.tar"
   EXTRA_MERGER: False
   RETURN_INTER: False
   BACKBONE:

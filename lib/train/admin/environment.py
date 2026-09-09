@@ -27,6 +27,7 @@ def create_default_local_file():
         'antiuav410_dir': empty_str,
         'irstd1k_dir': empty_str,
         'irstd_dir': empty_str,
+        'uavantiuav_dir': empty_str
         })
 
     comment = {'workspace_dir': 'Base directory for saving network checkpoints.',

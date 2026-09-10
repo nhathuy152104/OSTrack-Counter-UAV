@@ -31,31 +31,12 @@ def main():
     parser.set_defaults(save_results=True)
 
     args = parser.parse_args()
-    test_dir = "/kaggle/input/datasets/huynhat15/uavantiuav-test/Test"
-    video_files = []
-
-    for root, dirs, files in os.walk(test_dir):
-        for file in files:
-            if file.lower().endswith(".mp4"):
-                video_files.append(os.path.join(root, file))
-
-    video_files.sort()
-
-    print(f"Found {len(video_files)} videos")
-
-    for videofile in video_files:
-
-        video_dir = os.path.dirname(videofile)
-
-        ground_truth = os.path.join(
-            video_dir,
-            "groundtruth_rect.txt"
-        )
-
-        print(f"\nProcessing: {videofile}")
-        print(f"Ground truth: {ground_truth}")
-    
-        run_video(args.tracker_name, args.tracker_param, args.videofile, ground_truth, args.optional_box, args.debug, args.save_results)
+    video_dir = os.path.dirname(args.videofile)
+    ground_truth = os.path.join(
+        video_dir,
+        "groundtruth_rect.txt"
+    )
+    run_video(args.tracker_name, args.tracker_param, args.videofile, ground_truth, args.optional_box, args.debug, args.save_results)
 
 
 if __name__ == '__main__':

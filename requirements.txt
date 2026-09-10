@@ -14,6 +14,5 @@ lmdb
 scipy
 visdom
 tensorboardX
-setuptools==59.5.0
 wandb
 timm

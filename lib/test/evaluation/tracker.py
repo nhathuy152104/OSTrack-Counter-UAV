@@ -317,7 +317,7 @@ class Tracker:
 
         # When everything done, release the capture
         cap.release()
-        cv.destroyAllWindows()
+        # cv.destroyAllWindows()
 
         if save_results:
             if not os.path.exists(self.results_dir):

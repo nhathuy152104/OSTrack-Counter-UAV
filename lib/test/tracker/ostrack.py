@@ -1,5 +1,4 @@
 import math
-import onnxruntime as ort
 import time
 
 from lib.models.ostrack import build_ostrack

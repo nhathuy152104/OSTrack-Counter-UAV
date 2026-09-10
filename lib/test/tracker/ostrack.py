@@ -24,7 +24,7 @@ class OSTrack(BaseTracker):
     def __init__(self, params, dataset_name):
         super(OSTrack, self).__init__(params)
         network = build_ostrack(params.cfg, training=False)
-        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu')['net'], strict=True)
+        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu', weights_only= False)['net'], strict=True)
         self.result_dir = "./tracking_results"
 
         self.cfg = params.cfg

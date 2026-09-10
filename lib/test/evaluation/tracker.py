@@ -155,7 +155,7 @@ class Tracker:
 
         return output
 
-    def run_video(self, videofilepath, optional_box=None, debug=None, visdom_info=None, save_results=False, ground_truth = None):
+    def run_video(self, videofilepath, optional_box=None, debug=None, visdom_info=None, save_results=True, ground_truth = None):
         """Run the tracker with the vieofile.
         args:
             debug: Debug level.

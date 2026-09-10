@@ -167,7 +167,6 @@ class Tracker:
         if debug is None:
             debug_ = getattr(params, 'debug', 0)
         params.debug = debug_
-
         params.tracker_name = self.name
         params.param_name = self.parameter_name
         # self._init_visdom(visdom_info, debug_)
@@ -191,10 +190,10 @@ class Tracker:
         output_boxes = []
         cap = cv.VideoCapture(videofilepath)
         display_name = 'Display: ' + tracker.params.tracker_name
-        cv.namedWindow(display_name, cv.WINDOW_NORMAL | cv.WINDOW_KEEPRATIO)
-        cv.resizeWindow(display_name, 960, 720)
+        # cv.namedWindow(display_name, cv.WINDOW_NORMAL | cv.WINDOW_KEEPRATIO)
+        # cv.resizeWindow(display_name, 960, 720)
         success, frame = cap.read()
-        cv.imshow(display_name, frame)
+        # cv.imshow(display_name, frame)
 
         def _build_init_info(box):
             return {'init_bbox': box}
@@ -213,8 +212,8 @@ class Tracker:
                 # cv.waitKey()
                 frame_disp = frame.copy()
 
-                cv.putText(frame_disp, 'Select target ROI and press ENTER', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL,
-                           1.5, (0, 0, 0), 1)
+                # cv.putText(frame_disp, 'Select target ROI and press ENTER', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL,
+                        #    1.5, (0, 0, 0), 1)
 
                 x, y, w, h = cv.selectROI(display_name, frame_disp, fromCenter=False)
                 init_state = [x, y, w, h]
@@ -246,75 +245,75 @@ class Tracker:
             state = [int(s) for s in out['target_bbox']]
             output_boxes.append(state)
             
-            cv.rectangle(frame_disp, (state[0], state[1]), (state[2] + state[0], state[3] + state[1]),
-                         (0, 255, 0), 2)
+            # cv.rectangle(frame_disp, (state[0], state[1]), (state[2] + state[0], state[3] + state[1]),
+            #              (0, 255, 0), 2)
 
             font_color = (0, 0, 0)
-            cv.putText(frame_disp, 'Tracking!', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
-                       font_color, 1)
-            cv.putText(frame_disp, 'Press r to reset', (20, 55), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
-                       font_color, 1)
-            cv.putText(frame_disp, 'Press q to quit', (20, 80), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
-                       font_color, 1)
+            # cv.putText(frame_disp, 'Tracking!', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
+            #            font_color, 1)
+            # cv.putText(frame_disp, 'Press r to reset', (20, 55), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
+            #            font_color, 1)
+            # cv.putText(frame_disp, 'Press q to quit', (20, 80), cv.FONT_HERSHEY_COMPLEX_SMALL, 1,
+            #            font_color, 1)
 
-            gt = [int(v) for v in gt_boxes[frame_id]]
-            pred_bb = torch.tensor([state], dtype=torch.float32)
-            anno_bb = torch.tensor([gt], dtype=torch.float32)
-            iou = calc_iou_overlap(pred_bb, anno_bb)[0].item()
-            iou_history.append(iou)
-            if frame_id % 5 == 0:      # cập nhật mỗi 5 frame
-                line.set_xdata(range(len(iou_history)))
-                line.set_ydata(iou_history)
+            # gt = [int(v) for v in gt_boxes[frame_id]]
+            # pred_bb = torch.tensor([state], dtype=torch.float32)
+            # anno_bb = torch.tensor([gt], dtype=torch.float32)
+            # iou = calc_iou_overlap(pred_bb, anno_bb)[0].item()
+            # iou_history.append(iou)
+            # if frame_id % 5 == 0:      # cập nhật mỗi 5 frame
+            #     line.set_xdata(range(len(iou_history)))
+            #     line.set_ydata(iou_history)
 
-                ax.set_xlim(0, max(50, len(iou_history)))
+            #     ax.set_xlim(0, max(50, len(iou_history)))
 
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-            cv.putText(
-                frame_disp,
-                f"IoU: {iou:.3f}",
-                (20, 110),
-                cv.FONT_HERSHEY_COMPLEX_SMALL,
-                1,
-                (255, 0, 0),
-                1
-            )
-            cv.rectangle(
-                frame_disp,
-                (gt[0], gt[1]),
-                (gt[0] + gt[2], gt[1] + gt[3]),
-                (0, 0, 255),
-                2
-            )
+            #     fig.canvas.draw()
+            #     fig.canvas.flush_events()
+            # cv.putText(
+            #     frame_disp,
+            #     f"IoU: {iou:.3f}",
+            #     (20, 110),
+            #     cv.FONT_HERSHEY_COMPLEX_SMALL,
+            #     1,
+            #     (255, 0, 0),
+            #     1
+            # )
+            # cv.rectangle(
+            #     frame_disp,
+            #     (gt[0], gt[1]),
+            #     (gt[0] + gt[2], gt[1] + gt[3]),
+            #     (0, 0, 255),
+            #     2
+            # )
 
 
-            # Display the resulting frame
-            cv.putText(frame_disp, "Pred", (state[0], state[1]-5),
-            cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 1)
+            # # Display the resulting frame
+            # cv.putText(frame_disp, "Pred", (state[0], state[1]-5),
+            # cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 1)
 
-            cv.putText(frame_disp, "GT", (gt[0], gt[1]-5),
-                    cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
+            # cv.putText(frame_disp, "GT", (gt[0], gt[1]-5),
+            #         cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255), 1)
 
-            # Hiển thị
-            cv.imshow(display_name, frame_disp)
+            # # Hiển thị
+            # cv.imshow(display_name, frame_disp)
 
             frame_id += 1
-            key = cv.waitKey(1)
-            if key == ord('q'):
-                break
-            elif key == ord('r'):
-                frame_id = 0
-                ret, frame = cap.read()
-                frame_disp = frame.copy()
+            # key = cv.waitKey(1)
+            # if key == ord('q'):
+            #     break
+            # elif key == ord('r'):
+            #     frame_id = 0
+            #     ret, frame = cap.read()
+            #     frame_disp = frame.copy()
 
-                cv.putText(frame_disp, 'Select target ROI and press ENTER', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL, 1.5,
-                           (0, 0, 0), 1)
+            #     cv.putText(frame_disp, 'Select target ROI and press ENTER', (20, 30), cv.FONT_HERSHEY_COMPLEX_SMALL, 1.5,
+            #                (0, 0, 0), 1)
 
-                cv.imshow(display_name, frame_disp)
-                x, y, w, h = cv.selectROI(display_name, frame_disp, fromCenter=False)
-                init_state = [x, y, w, h]
-                tracker.initialize(frame, _build_init_info(init_state))
-                output_boxes.append(init_state)
+            #     cv.imshow(display_name, frame_disp)
+            #     x, y, w, h = cv.selectROI(display_name, frame_disp, fromCenter=False)
+            #     init_state = [x, y, w, h]
+            #     tracker.initialize(frame, _build_init_info(init_state))
+            #     output_boxes.append(init_state)
 
         # When everything done, release the capture
         cap.release()
@@ -329,34 +328,34 @@ class Tracker:
             tracked_bb = np.array(output_boxes).astype(int)
             bbox_file = '{}.txt'.format(base_results_path)
             np.savetxt(bbox_file, tracked_bb, delimiter='\t', fmt='%d')
-        seq_length = len(gt_boxes)
-        plot_bin_gap = 0.05
-        pred_bb = torch.tensor(output_boxes)
-        anno_bb = torch.tensor(gt_boxes)
-        err_center = calc_err_center(pred_bb, anno_bb)
-        err_center_normalized = calc_err_center(pred_bb, anno_bb, normalized=True)
-        err_overlap = calc_iou_overlap(pred_bb, anno_bb)
-        threshold_set_overlap = torch.arange(0.0, 1.0 + plot_bin_gap, plot_bin_gap, dtype=torch.float64)
-        threshold_set_center = torch.arange(0, 51, dtype=torch.float64)
-        threshold_set_center_norm = torch.arange(0, 51, dtype=torch.float64) / 100.0
-        ave_success_rate_plot_overlap = (err_overlap.view(-1, 1) > threshold_set_overlap.view(1, -1)).sum(0).float() / seq_length
-        ave_success_rate_plot_center = (err_center.view(-1, 1) <= threshold_set_center.view(1, -1)).sum(0).float() / seq_length
-        ave_success_rate_plot_center_norm = (err_center_normalized.view(-1, 1) <= threshold_set_center_norm.view(1, -1)).sum(0).float() / seq_length
+        # seq_length = len(gt_boxes)
+        # plot_bin_gap = 0.05
+        # pred_bb = torch.tensor(output_boxes)
+        # anno_bb = torch.tensor(gt_boxes)
+        # err_center = calc_err_center(pred_bb, anno_bb)
+        # err_center_normalized = calc_err_center(pred_bb, anno_bb, normalized=True)
+        # err_overlap = calc_iou_overlap(pred_bb, anno_bb)
+        # threshold_set_overlap = torch.arange(0.0, 1.0 + plot_bin_gap, plot_bin_gap, dtype=torch.float64)
+        # threshold_set_center = torch.arange(0, 51, dtype=torch.float64)
+        # threshold_set_center_norm = torch.arange(0, 51, dtype=torch.float64) / 100.0
+        # ave_success_rate_plot_overlap = (err_overlap.view(-1, 1) > threshold_set_overlap.view(1, -1)).sum(0).float() / seq_length
+        # ave_success_rate_plot_center = (err_center.view(-1, 1) <= threshold_set_center.view(1, -1)).sum(0).float() / seq_length
+        # ave_success_rate_plot_center_norm = (err_center_normalized.view(-1, 1) <= threshold_set_center_norm.view(1, -1)).sum(0).float() / seq_length
 
 
-        plt.figure(figsize=(8,5))
-        plt.plot(
-            threshold_set_center_norm.numpy(),
-            ave_success_rate_plot_center_norm.numpy(),
-            linewidth=2
-        )
+        # plt.figure(figsize=(8,5))
+        # plt.plot(
+        #     threshold_set_center_norm.numpy(),
+        #     ave_success_rate_plot_center_norm.numpy(),
+        #     linewidth=2
+        # )
 
-        plt.xlabel("Threshold")
-        plt.ylabel("Precision")
-        plt.title("Precision Nprm plot")
-        plt.grid(True)
-        plt.savefig("success_plot.png")
-        print(1)
+        # plt.xlabel("Threshold")
+        # plt.ylabel("Precision")
+        # plt.title("Precision Nprm plot")
+        # plt.grid(True)
+        # plt.savefig("success_plot.png")
+        # print(1)
     def get_parameters(self):
         """Get parameters."""
         param_module = importlib.import_module('lib.test.parameter.{}'.format(self.name))

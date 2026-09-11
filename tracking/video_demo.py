@@ -39,9 +39,9 @@ def main():
                 video_files.append(os.path.join(root, file))
 
     video_files.sort()
-
+    
     for videofile in video_files:
-
+        print(videofile)
         video_dir = os.path.dirname(videofile)
 
         ground_truth = os.path.join(

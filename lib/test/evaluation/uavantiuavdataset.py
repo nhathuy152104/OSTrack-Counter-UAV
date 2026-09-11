@@ -34,7 +34,11 @@ class UAVAntiUAVDataset(BaseDataset):
         frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg')]
         frame_list.sort(key=lambda f: int(os.path.splitext(f)[0].split('_')[-1]))
         frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
-
+        print(
+            f"[{sequence_name}] "
+            f"frames={len(frames_list)}, "
+            f"gt={len(ground_truth_rect)}"
+        )
         return Sequence(sequence_name, frames_list, 'uavantiuav', ground_truth_rect.reshape(-1, 4))
 
     def __len__(self):

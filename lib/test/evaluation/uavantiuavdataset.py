@@ -31,7 +31,7 @@ class UAVAntiUAVDataset(BaseDataset):
         gt = np.array(ground_truth_rect, dtype = np.float64)
 
         frames_path = '{}/{}'.format(self.base_path, sequence_name)
-        frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg') and frame[0] != 'A']
+        frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg') and frame[:-4].isdigit()]
         frame_list.sort(key=lambda f: int(f[:-4]))
         frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
 

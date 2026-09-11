@@ -28,6 +28,8 @@ dataset_dict = dict(
     antiuav410_test=DatasetInfo(module=pt % "antiuav410", class_name="AntiUAV410Dataset", kwargs=dict(split='test')),
     antiuav410_val=DatasetInfo(module=pt % "antiuav410", class_name="AntiUAV410Dataset", kwargs=dict(split='val')),
     antiuav410_ltrval=DatasetInfo(module=pt % "antiuav410", class_name="AntiUAV410Dataset", kwargs=dict(split='ltrval')),
+
+    uavantiuav_test = DatasetInfo(module = pt % "uavantiuav", class_name="UAVAntiUAVDataset", kwargs=dict())
 )
 
 

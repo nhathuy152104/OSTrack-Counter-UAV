@@ -2,7 +2,7 @@ import cv2
 import os
 import glob
 
-root = "/home/arsene_lupin/HuyWorkspace/VtWork/dataset/Train"
+root = "/home/arsene_lupin/HuyWorkspace/VtWork/dataset/Test"
 
 # Tìm tất cả sequence có ground_truth.txt
 anno_files = sorted(

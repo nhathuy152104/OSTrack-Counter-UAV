@@ -38,7 +38,7 @@ def run_video(tracker_name, tracker_param, videofile, optional_box=None, debug=N
             video_dir,
             "groundtruth_rect.txt"
         )
-    tracker.run_video(videofilepath=videofile, optional_box=optional_box, debug=debug, save_results=save_results, ground_truth = ground_truth )
+        tracker.run_video(videofilepath=videofile, optional_box=optional_box, debug=debug, save_results=save_results, ground_truth = ground_truth )
 
 
 def main():

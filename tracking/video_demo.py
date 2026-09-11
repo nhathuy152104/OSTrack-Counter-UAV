@@ -40,11 +40,11 @@ def main():
 
     video_files.sort()
 
-    cnt = 1
+    cnt = 0
     for videofile in video_files:
+        cnt += 1
         if cnt < 121:
             continue
-        cnt += 1
         print(videofile)
         video_dir = os.path.dirname(videofile)
 

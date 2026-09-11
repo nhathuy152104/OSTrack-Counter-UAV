@@ -19,7 +19,7 @@ class UAVAntiUAVDataset(BaseDataset):
         seq_dirs = [osp.dirname(f) for f in anno_files]
         seq_names = [osp.basename(d) for d in seq_dirs]
 
-        self.sequenque_list = seq_names
+        self.sequence_list = seq_names
 
 
     def get_sequence_list(self):

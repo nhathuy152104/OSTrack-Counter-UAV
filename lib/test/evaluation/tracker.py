@@ -155,7 +155,7 @@ class Tracker:
 
         return output
 
-    def run_video(self, videofilepath, optional_box=None, debug=None, visdom_info=None, save_results=False, ground_truth = None):
+    def run_video(self, videofilepath, optional_box=None, debug=None, visdom_info=None, save_results=True, ground_truth = None):
         """Run the tracker with the vieofile.
         args:
             debug: Debug level.
@@ -327,6 +327,7 @@ class Tracker:
 
             tracked_bb = np.array(output_boxes).astype(int)
             bbox_file = '{}.txt'.format(base_results_path)
+            print(bbox_file)
             np.savetxt(bbox_file, tracked_bb, delimiter='\t', fmt='%d')
         # seq_length = len(gt_boxes)
         # plot_bin_gap = 0.05

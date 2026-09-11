@@ -48,7 +48,7 @@ def main():
             video_dir,
             "groundtruth_rect.txt"
         )
-        run_video(args.tracker_name, args.tracker_param, args.videofile, ground_truth, args.optional_box, args.debug, args.save_results)
+        run_video(args.tracker_name, args.tracker_param, videofile, ground_truth, args.optional_box, args.debug, args.save_results)
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ class UAVAntiUAVDataset(BaseDataset):
 
 
     def get_sequence_list(self):
-        return SequenceList([self._construct_sequence(s) for s in self.sequenque_list])
+        return SequenceList([self._construct_sequence(s) for s in self.sequence_list])
     def _construct_sequence(self, sequence_name):
         anno_path = '{}/{}/groundtruth_rect.txt'.format(self.base_path, sequence_name)
 

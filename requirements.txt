@@ -12,7 +12,6 @@ thop==0.0.31.post2005241907
 colorama
 lmdb
 scipy
-visdom
 tensorboardX
 wandb
 timm

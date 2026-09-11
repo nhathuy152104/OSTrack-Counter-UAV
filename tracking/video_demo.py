@@ -39,8 +39,12 @@ def main():
                 video_files.append(os.path.join(root, file))
 
     video_files.sort()
-    
+
+    cnt = 1
     for videofile in video_files:
+        if cnt < 121:
+            continue
+        cnt += 1
         print(videofile)
         video_dir = os.path.dirname(videofile)
 

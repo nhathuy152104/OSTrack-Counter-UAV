@@ -9,7 +9,7 @@ if prj_path not in sys.path:
 from lib.test.evaluation import Tracker
 
 
-def run_video(tracker_name, tracker_param, videofile, optional_box=None, debug=None, save_results=False):
+def run_video(tracker_name, tracker_param, videofile, optional_box=None, debug=None, save_results=True):
     """Run the tracker on your webcam.
     args:
         tracker_name: Name of tracking method.

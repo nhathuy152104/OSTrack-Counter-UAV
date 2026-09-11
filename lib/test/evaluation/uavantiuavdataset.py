@@ -31,14 +31,10 @@ class UAVAntiUAVDataset(BaseDataset):
         gt = np.array(ground_truth_rect, dtype = np.float64)
 
         frames_path = '{}/{}'.format(self.base_path, sequence_name)
-        frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg')]
-        frame_list.sort(key=lambda f: int(os.path.splitext(f)[0].split('_')[-1]))
+        frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg') and frame[0] != 'A']
+        frame_list.sort(key=lambda f: int(f[:-4]))
         frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
-        print(
-            f"[{sequence_name}] "
-            f"frames={len(frames_list)}, "
-            f"gt={len(ground_truth_rect)}"
-        )
+
         return Sequence(sequence_name, frames_list, 'uavantiuav', ground_truth_rect.reshape(-1, 4))
 
     def __len__(self):

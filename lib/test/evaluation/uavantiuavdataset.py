@@ -6,14 +6,14 @@ import os.path as osp
 import json
 
 from lib.test.evaluation.data import Sequence, BaseDataset, SequenceList
-from lib.test.utils.load_text import load_txt
+from lib.test.utils.load_text import load_text
 
 
 class UAVAntiUAVDataset(BaseDataset):
 
-    def __init__(self, split):
+    def __init__(self):
         super().__init__()
-        self.base_path = os.path.join(self.env_settings.uavantiuav_path, split)
+        self.base_path = os.path.join(self.env_settings.uavantiuav_path)
         anno_files = sorted(glob.glob(os.path.join(self.base_path, "*/groundtruth_rect.txt")))
 
         seq_dirs = [osp.dirname(f) for f in anno_files]
@@ -21,7 +21,6 @@ class UAVAntiUAVDataset(BaseDataset):
 
         self.sequenque_list = seq_names
 
-        self.split = split
 
     def get_sequence_list(self):
         return SequenceList([self._construct_sequence(s) for s in self.sequenque_list])

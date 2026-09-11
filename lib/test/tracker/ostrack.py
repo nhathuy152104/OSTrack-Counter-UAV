@@ -18,7 +18,6 @@ from lib.utils.ce_utils import generate_mask_cond
 import torch.nn.functional as F
 import cv2
 import numpy as np
-import torch_xla.core.xla_model as xm
 
 
 class OSTrack(BaseTracker):
@@ -27,9 +26,9 @@ class OSTrack(BaseTracker):
         network = build_ostrack(params.cfg, training=False)
         network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu', weights_only= False)['net'], strict=True)
         self.result_dir = "./tracking_results"
-        device = xm.xla_device()
+
         self.cfg = params.cfg
-        self.network = network.to(device)
+        self.network = network.cuda()
         self.network.eval()
         self.preprocessor = Preprocessor()
         self.state = None

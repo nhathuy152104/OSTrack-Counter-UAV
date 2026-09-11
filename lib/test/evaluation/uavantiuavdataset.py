@@ -32,7 +32,7 @@ class UAVAntiUAVDataset(BaseDataset):
 
         frames_path = '{}/{}'.format(self.base_path, sequence_name)
         frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith('.jpg')]
-        frame_list.sort(key=lambda f: int(f[:-4]))
+        frame_list.sort(key=lambda f: int(os.path.splitext(f)[0].split('_')[-1]))
         frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
 
         return Sequence(sequence_name, frames_list, 'uavantiuav', ground_truth_rect.reshape(-1, 4))

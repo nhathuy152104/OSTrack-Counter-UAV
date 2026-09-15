@@ -25,7 +25,6 @@ class UAVCB(BaseVideoDataset):
         print("Dataset root:", self.root)
 
         anno_files = sorted(glob.glob(os.path.join(self.root, '*/groundtruth_rect.txt')))
-        print(glob.glob(os.path.join(self.root, '*/groundtruth_rect.txt')
         print("Found GT", len(anno_files))
 
         self.sequence_list = self._get_sequence_list()

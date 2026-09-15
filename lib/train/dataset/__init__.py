@@ -11,3 +11,4 @@ from .coco_seq_lmdb import MSCOCOSeq_lmdb
 from .tracking_net_lmdb import TrackingNet_lmdb
 from .antiuav410 import AntiUAV410
 from .uavantiuav import UAVAntiUAV
+from .uavcb import UAVCB

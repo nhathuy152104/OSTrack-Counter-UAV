@@ -188,7 +188,7 @@ def eval(out_res, label_res, exist):
     return np.mean(measure_per_frame)
 
 
-def main(Tracker_Name, video_paths, video_num, output_dir, visulization=False):
+def main(Tracker_Name, video_paths, video_num, output_dir, visulization=True):
     # report performance
     overall_performance = []
     for video_id, video_path in enumerate(video_paths, start=1):
@@ -225,7 +225,7 @@ def main(Tracker_Name, video_paths, video_num, output_dir, visulization=False):
 
         # load images
         if visulization:
-            image_path = video_path + '/imgs/*.jpg'
+            image_path = video_path + '/*.jpg'
             image_files = sorted(glob.glob(image_path))
 
         # load prediction
@@ -249,23 +249,36 @@ def main(Tracker_Name, video_paths, video_num, output_dir, visulization=False):
         if visulization:
             for frame_id, image_file in enumerate(image_files):
                 frame = cv2.imdecode(np.fromfile(image_file, dtype=np.uint8), cv2.IMREAD_COLOR)  # h*w*c
+                
+                # Tránh lỗi IndexError nếu số lượng frame ảnh và kết quả không khớp
+                if frame_id >= len(label_res) or frame_id >= len(out_res):
+                    break
+
                 _gt = label_res[frame_id]
                 _exist = exist[frame_id]
                 out = out_res[frame_id]
+                
+                # Xanh lá: Groundtruth
                 if _exist:
-                    cv2.rectangle(frame, (int(_gt[0]), int(_gt[1])), (int(_gt[0] + _gt[2]), int(_gt[1] + _gt[3])),(0, 255, 0))
+                    cv2.rectangle(frame, (int(_gt[0]), int(_gt[1])), (int(_gt[0] + _gt[2]), int(_gt[1] + _gt[3])), (0, 255, 0), 2)
+                
+                # Trạng thái Groundtruth
                 cv2.putText(frame, 'exist' if _exist else 'not exist',
-                            (frame.shape[1] // 2 - 20, 30), 1, 2, (0, 255, 0) if _exist else (0, 0, 255), 2)
+                            (frame.shape[1] // 2 - 20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0) if _exist else (0, 0, 255), 2)
 
-                cv2.putText(frame, '#'+str(frame_id), (20, 40), 1, 2, (0, 255, 255), 2)
-                cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])),
-                              (0, 255, 255))
+                # Số thứ tự Frame
+                cv2.putText(frame, '#'+str(frame_id), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+                
+                # Vàng: Kết quả Tracker dự đoán
+                cv2.rectangle(frame, (int(out[0]), int(out[1])), (int(out[0] + out[2]), int(out[1] + out[3])), (0, 255, 255), 2)
+                
                 cv2.imshow(video_name, frame)
-                cv2.waitKey(1)
+                
+                # Nhấn 'q' hoặc ESC trên bàn phím để dừng xem video hiện tại
+                key = cv2.waitKey(30) & 0xFF
+                if key == 27 or key == ord('q'):
+                    break
 
-                frame_id += 1
-
-        if visulization:
             cv2.destroyAllWindows()
 
         mixed_measure = eval(out_res, label_res, exist)
@@ -291,11 +304,11 @@ if __name__ == '__main__':
         video_paths = glob.glob(os.path.join('/home/arsene_lupin/HuyWorkspace/VtWork/dataset/Test', '*'))
         video_num = len(video_paths)
 
-        # Results: Test
-        output_dir = os.path.join('/home/arsene_lupin/HuyWorkspace/VtWork/OSTrack-Counter-UAV/test', Tracker_Name)
+        # Results: Testc
+        output_dir = os.path.join('/home/arsene_lupin/HuyWorkspace/VtWork/OSTrack-Counter-UAV/rs/test/tracking_results/ostrack/vitb_384_mae_ce_32x4_ep300')
 
         # Calculate Accuracy
-        mACC_Score = main(Tracker_Name, video_paths, video_num, output_dir, visulization=False)
+        mACC_Score = main(Tracker_Name, video_paths, video_num, output_dir, visulization=True)
         mACC_Scores.append(mACC_Score)
 
 

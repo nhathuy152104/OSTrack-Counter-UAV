@@ -24,7 +24,7 @@ class UAVCB(BaseVideoDataset):
         super().__init__('UAVCB', root, image_loader)
         print("Dataset root:", self.root)
 
-        anno_files = sorted(glob.glob(os.path.join(self.root, '*/groundtruth_rect.txt')))
+        anno_files = sorted(glob.glob(os.path.join(self.root, '*/groundtruth_rect.txt'))) 
         print("Found GT", len(anno_files))
 
         self.sequence_list = self._get_sequence_list()
@@ -46,7 +46,7 @@ class UAVCB(BaseVideoDataset):
         return True
     
     def has_occlusion_info(self):
-        return False
+        return True
     
     def _load_meta_info(self):
         sequence_meta_info = {s: self._read_meta(os.path.join(self.root, s)) for s in self.sequence_list}
@@ -88,25 +88,14 @@ class UAVCB(BaseVideoDataset):
 
         return torch.tensor(gt)
 
-    # def _read_target_visible(self, seq_path):
-    #     absent_file = os.path.join(seq_path, 'absent.txt')
-
-    #     absent = np.loadtxt(
-    #         absent_file,
-    #         dtype = np.int64
-    #     )
-    #     absent = np.asarray(absent).reshape(-1)
-
-    #     target_visible = 1 - absent
-
-    #     target_visible = torch.tensor(
-    #         target_visible,
-    #         dtype = torch.uint8
-    #     )
-
-    #     visible_ratio = target_visible.float()
-
-    #     return target_visible, visible_ratio
+    def _read_target_visible(self, seq_path): 
+        gt_file = os.path.join(seq_path, 'groundtruth_rect.txt') # Đọc ground truth để biết số lượng frame 
+        gt = np.loadtxt(gt_file, dtype=np.float32) # Đảm bảo gt luôn có dạng [N, 4] 
+        gt = np.asarray(gt).reshape(-1, 4) 
+        num_frames = len(gt) 
+        target_visible = torch.ones( num_frames, dtype=torch.uint8 ) 
+        visible_ratio = target_visible.float() 
+        return target_visible, visible_ratio
 
     def _get_sequence_path(self, seq_id):
         return os.path.join(self.root, self.sequence_list[seq_id])
@@ -115,11 +104,11 @@ class UAVCB(BaseVideoDataset):
         seq_path = self._get_sequence_path(seq_id)  
         bbox = self._read_bb_anno(seq_path)
 
-        # valid = (bbox[:, 2] > 0) & (bbox[:, 3] > 0)
-        # visible, visible_ratio = self._read_target_visible(seq_path)
-        # visible = visible & valid.byte()
+        valid = (bbox[:, 2] > 0) & (bbox[:, 3] > 0)
+        visible, visible_ratio = self._read_target_visible(seq_path)
+        visible = visible & valid.byte()
 
-        return {'bbox': bbox}
+        return {'bbox': bbox, 'valid': valid, 'visible': visible, 'visible_ratio': visible_ratio}
     def _get_frame_path(self, seq_path, frame_id):
         return os.path.join(seq_path, '{:06}.jpg'.format(frame_id + 1))
 

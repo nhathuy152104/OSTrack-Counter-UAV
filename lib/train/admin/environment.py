@@ -27,7 +27,8 @@ def create_default_local_file():
         'antiuav410_dir': empty_str,
         'irstd1k_dir': empty_str,
         'irstd_dir': empty_str,
-        'uavantiuav_dir': empty_str
+        'uavantiuav_dir': empty_str,
+        'uavcb': empty_str
         })
 
     comment = {'workspace_dir': 'Base directory for saving network checkpoints.',
@@ -77,7 +78,7 @@ def create_default_local_file_ITP_train(workspace_dir, data_dir):
         'antiuav410_dir': os.path.join(data_dir, 'antiuav410/train'),
         'irstd1k_dir': os.path.join(data_dir, 'irstd1k/'),
         'irstd_dir': os.path.join(data_dir, 'irstd/'),
-        'uavantiuav_dir': os.path.join(data_dir, '')
+        'uavantiuav_dir': os.path.join(data_dir, ''),
         'uavcb_dir': os.path.join(data_dir, '')
 })
     comment = {'workspace_dir': 'Base directory for saving network checkpoints.',

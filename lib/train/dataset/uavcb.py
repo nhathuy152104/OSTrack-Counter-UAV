@@ -90,7 +90,7 @@ class UAVCB(BaseVideoDataset):
 
     def _read_target_visible(self, seq_path): 
         gt_file = os.path.join(seq_path, 'groundtruth_rect.txt') # Đọc ground truth để biết số lượng frame 
-        gt = np.loadtxt(gt_file, dtype=np.float32) # Đảm bảo gt luôn có dạng [N, 4] 
+        gt = np.loadtxt(gt_file, dtype=np.float32, delimiter=',') # Đảm bảo gt luôn có dạng [N, 4] 
         gt = np.asarray(gt).reshape(-1, 4) 
         num_frames = len(gt) 
         target_visible = torch.ones( num_frames, dtype=torch.uint8 ) 

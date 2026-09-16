@@ -301,7 +301,12 @@ if __name__ == '__main__':
     for i in range(len(Trackers_Name)):
         Tracker_Name = Trackers_Name[i]
         # Path of the Benchmark Dataset: GT
-        video_paths = glob.glob(os.path.join('/home/arsene_lupin/HuyWorkspace/VtWork/dataset/Test', '*'))
+        video_paths = [
+            p for p in glob.glob(
+                '/home/arsene_lupin/HuyWorkspace/VtWork/dataset/Test/UAV-Anti-UAV_Test_*'
+            )
+            if int(os.path.basename(p).split('_')[-1]) < 114
+        ]
         video_num = len(video_paths)
 
         # Results: Testc

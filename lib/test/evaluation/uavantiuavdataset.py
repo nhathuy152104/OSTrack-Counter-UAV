@@ -14,8 +14,12 @@ class UAVAntiUAVDataset(BaseDataset):
     def __init__(self):
         super().__init__()
         self.base_path = os.path.join(self.env_settings.uavantiuav_path)
-        anno_files = sorted(glob.glob(os.path.join(self.base_path, "*/groundtruth_rect.txt")))
+        target_ids = {5, 6, 8}
 
+        anno_files = sorted(
+            p for p in glob.glob(os.path.join(self.base_path, "*/groundtruth_rect.txt"))
+            if int(os.path.basename(os.path.dirname(p)).split('_')[-1]) in target_ids
+        )
         seq_dirs = [osp.dirname(f) for f in anno_files]
         seq_names = [osp.basename(d) for d in seq_dirs]
 

@@ -38,7 +38,7 @@ DATA:
     - 1
     SAMPLE_PER_EPOCH: 10000
 MODEL:
-  PRETRAIN_FILE: "/kaggle/input/models/huynhat15/ostrack-uavcb/pytorch/default/1/OSTrack_ep0005.pth.tar"
+  PRETRAIN_FILE: "/kaggle/input/models/huynhat15/ostrack-ft1/pytorch/default/1/OSTrack_ep0005.pth.tar"
   EXTRA_MERGER: False
   RETURN_INTER: False
   BACKBONE:

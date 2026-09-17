@@ -21,7 +21,7 @@ def parameters(yaml_name: str):
     params.search_size = cfg.TEST.SEARCH_SIZE
 
     # Network checkpoint path
-    params.checkpoint = "/kaggle/input/models/huynhat15/ostrack-ft1/pytorch/default/1/OSTrack_ep0005.pth.tar"
+    params.checkpoint = "/kaggle/input/models/huynhat15/ostrack-variscale/pytorch/default/1/OSTrack_ep0003.pth.tar"
 
     # whether to save boxes from all queries
     params.save_all_boxes = False

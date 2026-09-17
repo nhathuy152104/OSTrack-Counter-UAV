@@ -58,7 +58,7 @@ def run(settings):
     for p in net.backbone.parameters():
         p.requires_grad = False
 
-    print("Backbone frozen")
+    print("Backbone frozen 1")
     # wrap networks to distributed one
     net.cuda()
     if settings.local_rank != -1:

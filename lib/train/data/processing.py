@@ -77,7 +77,7 @@ class STARKProcessing(BaseProcessing):
             torch.Tensor - jittered box
         """
 
-        jittered_size = box[2:4] * torch.exp(torch.randn(2) * self.scale_jitter_factor[mode])
+        jittered_size = box[2:4]
         max_offset = (jittered_size.prod().sqrt() * torch.tensor(self.center_jitter_factor[mode]).float())
         jittered_center = box[0:2] + 0.5 * box[2:4] + max_offset * (torch.rand(2) - 0.5)
 
@@ -116,10 +116,10 @@ class STARKProcessing(BaseProcessing):
                 return data
 
             # Crop image region centered at jittered_anno box and get the attention mask
-            # random_jitter = torch.randint(low=-1, high=2, size=(1,)).item()
-            # factor = self.search_area_factor[s]
-            # if s == 'search':
-            #     factor = self.search_area_factor[s] + random_jitter
+            random_jitter = torch.randint(low=-1, high=2, size=(1,)).item()
+            factor = self.search_area_factor[s]
+            if s == 'search':
+                factor = self.search_area_factor[s] + random_jitter
             crops, boxes, att_mask, mask_crops = prutils.jittered_center_crop(data[s + '_images'], jittered_anno,
                                                                               data[s + '_anno'], self.search_area_factor[s],
                                                                               self.output_sz[s], masks=data[s + '_masks'])

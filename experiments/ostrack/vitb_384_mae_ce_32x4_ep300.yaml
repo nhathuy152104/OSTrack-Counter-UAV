@@ -27,7 +27,7 @@ DATA:
 
   TRAIN:
     DATASETS_NAME:
-    - UAVCB
+    - UAVAntiUAV
     DATASETS_RATIO:
     - 1
     SAMPLE_PER_EPOCH: 60000

@@ -102,7 +102,7 @@ class STARKProcessing(BaseProcessing):
         for s in ['template', 'search']:
             assert self.mode == 'sequence' or len(data[s + '_images']) == 1, \
                 "In pair mode, num train/test frames must be 1"
-
+    
             # Add a uniform noise to the center pos
             jittered_anno = [self._get_jittered_box(a, s) for a in data[s + '_anno']]
 
@@ -116,8 +116,12 @@ class STARKProcessing(BaseProcessing):
                 return data
 
             # Crop image region centered at jittered_anno box and get the attention mask
+            random_jitter = torch.randint(low=-1, high=2, size=(1,)).item()
+            factor = self.search_area_factor[s]
+            if s == 'search':
+                factor = self.search_area_factor[s] + random_jitter
             crops, boxes, att_mask, mask_crops = prutils.jittered_center_crop(data[s + '_images'], jittered_anno,
-                                                                              data[s + '_anno'], self.search_area_factor[s],
+                                                                              data[s + '_anno'], factor,
                                                                               self.output_sz[s], masks=data[s + '_masks'])
             # Apply transforms
             data[s + '_images'], data[s + '_anno'], data[s + '_att'], data[s + '_masks'] = self.transform[s](
